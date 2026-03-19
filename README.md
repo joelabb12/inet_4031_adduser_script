@@ -31,7 +31,7 @@ The First Name
   
 Groups
 
--group information
+- group information
 
 
 If the user does not have all 5 fields, it is skipped. If the user is intentionally skipping a line in the input file, they need to add "#" at the beginning of the line. The script will ignore it. 
