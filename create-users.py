@@ -4,43 +4,40 @@
 # Joel Abbe
 # 03/19/2026
 
-#REPLACE THIS COMMENT - identify what each of these imports is for.
-import os
-import re
-import sys
 
-#YOUR CODE SHOULD HAVE NONE OF THE INSTRUCTORS COMMENTS REMAINING WHEN YOU ARE FINISHED
-#PLEASE REPLACE INSTRUCTOR "PROMPTS" WITH COMMENTS OF YOUR OWN
+import os  #Allows us to run linux commands within the script
+import re  #Allows us to work with regular expressions
+import sys #Allows access to system-specific parameters and functions
+
 
 def main():
     for line in sys.stdin:
-
-        #REPLACE THIS COMMENT - this "regular expression" is searching for the presence of a character - what is it and why?
-        #The important part is WHY it is looking for a particular characer - what is that character being used for?
+        #This looks to see if the line starts with a "#", they will be ignored by the script
+        #The important part is WHY it is looking for a particular characer- what is that character being used for?
         match = re.match("^#",line)
 
-        #REPLACE THIS COMMENT - why is the code doing this?
+        #This removes the extra spaces, splits the input line using ":"
         fields = line.strip().split(':')
 
-        #REPLACE THESE COMMENTS with a single comment describing the logic of the IF 
-        #what would an appropriate comment be for describing what this IF statement is checking for?
-        #what happens if the IF statement evaluates to true?
-        #how does this IF statement rely on what happened in the prior two lines of code? The match and fields lines.
-        #the code clearly shows that the variables match and the length of fields is being checked for being != 5  so why is it doing that?
+        #Looks at the line and will skip if it is incorrectly formatted, and if records are not valid it won't continue.
+        #Match looks at the comments and the fields looks at the number
         if match or len(fields) != 5:
             continue
 
-        #REPLACE THIS COMMENT - what is the purpose of the next three lines. How does it relate to what is stored in the passwd file?
+        #The username looks at the user input, when finish the gecos acts as a holder of information
+        #gecos is simmlar to /etc/passwd(hold information)
         username = fields[0]
         password = fields[1]
         gecos = "%s %s,,," % (fields[3],fields[2])
 
-        #REPLACE THIS COMMENT - why is this split being done?
+        #This split is being done because it splits the groups field into a list of groups
+        #A user can be added to mutiple groups if chosen
         groups = fields[4].split(',')
 
-        #REPLACE THIS COMMENT - what is the point of this print statement?
+        #Prints the progress so the Admin knows which user is being created
         print("==> Creating account for %s..." % (username))
-        #REPLACE THIS COMMENT - what is this line doing?  What will the variable "cmd" contain.
+        #cmd contains the linux command to create a new user. 
+        #Builds on the adduser with no password set, and uses gecos to store user data(name,passwd,etc)
         cmd = "/usr/sbin/adduser --disabled-password --gecos '%s' %s" % (gecos,username)
 
         #REMOVE THIS COMMENT AFTER YOU UNDERSTAND WHAT TO DO - these statements are currently "commented out" as talked about in class
@@ -48,9 +45,11 @@ def main():
         #print(cmd)
         #os.system(cmd)
 
-        #REPLACE THIS COMMENT - what is the point of this print statement?
+        #Prints the progress so the admin knows which password is being set up for which user
         print("==> Setting the password for %s..." % (username))
-        #REPLACE THIS COMMENT - what is this line doing?  What will the variable "cmd" contain. You'll need to lookup what these linux commands do.
+        #Sets the user to enter the password twice in the command line
+        #Echo send the password input and applies it to the specific user
+        #cmd contains the linux command used to set the users passwrd
         cmd = "/bin/echo -ne '%s\n%s' | /usr/bin/sudo /usr/bin/passwd %s" % (password,password,username)
 
         #REMOVE THIS COMMENT AFTER YOU UNDERSTAND WHAT TO DO - these statements are currently "commented out" as talked about in class
@@ -59,7 +58,8 @@ def main():
         #os.system(cmd)
 
         for group in groups:
-            #REPLACE THIS COMMENT with one that answers "What is this IF statement looking for and why? If group !='-' what happens?"
+            #The if statement is looking for "-".  If the input doesn't have it, the user will be added to that group
+            #If the value has"-" no group will be assigned
             if group != '-':
                 print("==> Assigning %s to the %s group..." % (username,group))
                 cmd = "/usr/sbin/adduser %s %s" % (username,group)
