@@ -40,10 +40,9 @@ def main():
         #Builds on the adduser with no password set, and uses gecos to store user data(name,passwd,etc)
         cmd = "/usr/sbin/adduser --disabled-password --gecos '%s' %s" % (gecos,username)
 
-        #REMOVE THIS COMMENT AFTER YOU UNDERSTAND WHAT TO DO - these statements are currently "commented out" as talked about in class
-        #The first time you run the code...what should you do here?  If uncommented - what will the os.system(cmd) statemetn attempt to do?
         #print(cmd)
-        #os.system(cmd)
+        os.system(cmd)
+	#os.system(cmd) will create the user account
 
         #Prints the progress so the admin knows which password is being set up for which user
         print("==> Setting the password for %s..." % (username))
@@ -52,10 +51,9 @@ def main():
         #cmd contains the linux command used to set the users passwrd
         cmd = "/bin/echo -ne '%s\n%s' | /usr/bin/sudo /usr/bin/passwd %s" % (password,password,username)
 
-        #REMOVE THIS COMMENT AFTER YOU UNDERSTAND WHAT TO DO - these statements are currently "commented out" as talked about in class
-        #The first time you run the code...what should you do here?  If uncommented - what will the os.system(cmd) statemetn attempt to do?
+        #os.system(cmd) will create the user account
         #print(cmd)
-        #os.system(cmd)
+        os.system(cmd)
 
         for group in groups:
             #The if statement is looking for "-".  If the input doesn't have it, the user will be added to that group
@@ -64,7 +62,7 @@ def main():
                 print("==> Assigning %s to the %s group..." % (username,group))
                 cmd = "/usr/sbin/adduser %s %s" % (username,group)
                 #print(cmd)
-                #os.system(cmd)
-
+                os.system(cmd)
+                #os.system(cmd) will create the user account
 if __name__ == '__main__':
     main()
