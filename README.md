@@ -10,18 +10,30 @@ The user creates an input file that contains one line for each account that is b
 
 ## Input File Format
 This is the expected format:
-  username:password:last name:first name:groups
+
+username:password:last name:first name:groups
 
 The username
-    - Name for the new account
+
+- Name for the new account
+- 
 The Password
-    - Password set for the new user
+
+ - Password set for the new user
+   
 The Last Name
-    - Last name set for the user
+
+ - Last name set for the user
+   
 The First Name
-    - First name set for the user
+
+- First name set for the user
+  
 Groups
-    - group information
+
+group information
+
+
 If the user does not have all 5 fields, it is skipped. If the user is intentionally skipping a line in the input file, they need to add "#" at the beginning of the line. The script will ignore it. 
 
 
@@ -30,6 +42,7 @@ If the user does not have all 5 fields, it is skipped. If the user is intentiona
 To run this program, please remember to move into the directory containing the files. The Python file may need to be made executable before running it directly. Once that is done, the script can be run from the command line.
 
 Below is the code that runs the script:
+
 ./create-users.py < create-users.input
 
 The "<"symbol is redirecting the contents of the create-users.Input the file into the program so the script can read each line through the input. 
