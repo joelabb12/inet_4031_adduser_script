@@ -50,4 +50,3 @@ The "<"symbol is redirecting the contents of the create-users.Input the file int
 
 ## Dry Run
 A dry run allows the user to test the script without making changes to the system. In the script, commenting on the lines that are "os.cmd()" will not make any changes to the system. The system will only print the commands and actions it would perform, like creating users, setting passwords, and groups. 
-t
